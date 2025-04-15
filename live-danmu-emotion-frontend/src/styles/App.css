@@ -1,0 +1,37 @@
+/* src/styles/App.css */
+.app-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.danmu-input {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.danmu-input input {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.danmu-input button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.danmu-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.danmu-item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
