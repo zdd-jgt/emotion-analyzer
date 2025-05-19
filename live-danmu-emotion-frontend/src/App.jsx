@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import DanmuInput from "./components/DanmuInput";
 import DanmuList from "./components/DanmuList";
+import ChartDisplay from "./components/ChartDisplay";
+import ChartBar from "./components/ChartBar";
+import NumericalDisplay from "./components/NumericalDisplay";
 import "./styles/App.css";
+
 
 function App() {
     const [messages, setMessages] = useState([]);
     const ws = useRef(null);
-
     useEffect(() => {
         // 建立 WebSocket 连接到后端（根据实际地址调整）
         ws.current = new WebSocket("ws://localhost:3001");
@@ -17,6 +20,9 @@ function App() {
 
         ws.current.onmessage = (event) => {
             const data = JSON.parse(event.data);
+            if (data.sentiment) {
+                data.sentiment[0].label = data.sentiment[0].label.replace(/\s+/g, '_');
+            }
             setMessages((prev) => [data, ...prev]);  // 最新消息放在最前面
         };
 
@@ -43,9 +49,23 @@ function App() {
 
     return (
         <div className="app-container">
-            <h1>直播弹幕情绪分析系统</h1>
-            <DanmuInput onSend={sendMessage} />
-            <DanmuList messages={messages} />
+            <div className="left">
+                <h1>直播弹幕情绪分析系统</h1>
+                <DanmuInput onSend={sendMessage}/>
+                <DanmuList messages={messages}/>
+                <div className="chart-box">
+                    <div className="chart-left">
+                        <ChartDisplay data={messages}/>
+                    </div>
+                    <div className="chart-right">
+                        <ChartBar data={messages}/>
+                    </div>
+                </div>
+            </div>
+
+            <div className="right">
+               <NumericalDisplay messages={messages}/>
+            </div>
         </div>
     );
 }
