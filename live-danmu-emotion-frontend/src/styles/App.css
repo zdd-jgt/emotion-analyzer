@@ -85,6 +85,12 @@
     overflow: auto;
     margin-bottom: 24px;
 }
+.danmu-list h2 {
+    font-weight: 600;
+    font-size: 24px;
+    color: #191919;
+    margin: 24px 0;
+}
 
 .danmu-item {
     padding-left: 15px;
